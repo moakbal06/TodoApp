@@ -10,3 +10,5 @@ password
  CREATE PRIMARY INDEX ON `default`:`todo`
   
   Create todo and User bucket
+
+docker-compose up
