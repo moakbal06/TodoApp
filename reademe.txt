@@ -1,3 +1,0 @@
- CREATE PRIMARY INDEX ON `default`:`todo`
- 
- index settings
