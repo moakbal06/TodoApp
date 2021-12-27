@@ -15,3 +15,6 @@ docker-compose up
 
 Ui
 localhost:8081
+
+Swagger
+http://localhost:8080/swagger-ui/
