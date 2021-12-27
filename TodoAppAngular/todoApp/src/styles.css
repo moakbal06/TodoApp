@@ -1,0 +1,85 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/primeicons/primeicons.css';
+@import '../node_modules/primeng/resources/primeng.min.css';
+@import '../node_modules/primeng/resources/themes/saga-blue/theme.css';
+@import '../node_modules/primeflex/primeflex.css';
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.p-button-success{
+background: #A8B400 !important;
+    
+}
+
+.p-button-danger{
+    
+    
+}
+
+.p-button-warning{
+    background: #FECB00 !important;
+}
+
+.p-button-info {
+
+    background: #007C92 !important;
+}
+.p-button-help{
+    background: #5E2750 !important;
+}
+
+body .p-listbox .p-listbox-list .p-listbox-item.p-state-highlight {
+    color: #000000;
+    text-decoration: line-through;
+    background-color: inherit;
+  }
+  
+  body .p-panel .p-panel-titlebar {
+    font-size: 25px;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  }
+  
+  .title {
+    font-size: 20px;
+    font-style: italic;
+  }
+  
+  body .p-label-active {
+    margin: 0 0 0 0.5em;
+    text-decoration: line-through !important;
+  }
+  
+  hr {
+    margin: 0;
+    padding: 0;
+    border: none;
+    height: 1px;
+    color: gainsboro;
+    background-color: gainsboro;
+  }
+  
+  .rmBtn {
+    background: transparent;
+    border: none;
+    color: tomato;
+  }
+  
+  .rmBtn:enabled:hover {
+    background: transparent;
+    border: none;
+    color: tomato;
+  }
+  
+  
+  .newtask {
+    border: none;
+    font-size: 18px;
+    margin-left: 0%;
+    padding-left: 0%;
+  }

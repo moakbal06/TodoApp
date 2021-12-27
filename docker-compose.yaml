@@ -1,0 +1,58 @@
+version: '3.7'
+ 
+# Define services
+services:
+  # App backend service
+  app-server:
+    # Configuration for building the docker image for the backend service
+    build:
+      context: TodoApp # Use an image built from the specified dockerfile in the `spring-boot-oauth2-social-login` directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    restart: always
+    depends_on:
+      - couchbase # This service depends on mysql. Start that first.
+    environment:
+     COUCHBASE_CONNECTION: couchbase:11210
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+      - frontend
+ 
+  # Frontend Service 
+  app-client:
+    build:
+      context: TodoAppAngular/todoApp # Use an image built from the specified dockerfile in the `angular-11-social-login` directory.
+      dockerfile: Dockerfile
+    
+    ports:
+      - "8081:80" # Map the exposed port 80 on the container to port 8081 on the host machine
+    restart: always
+    depends_on:
+      - app-server
+    networks:
+      - frontend  
+ 
+  couchbase:
+    build: ./couchbase
+    image: moakbal/couchbase
+    ports:
+     - 8091:8091
+     - 8092:8092
+     - 8093:8093
+     - 11210:11210
+    networks:
+      - backend  
+    volumes:
+      - couchbase-data:/opt/couchbase/var  
+   
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+    driver: bridge
+  frontend: 
+   
+volumes:
+  couchbase-data:
+  
+  

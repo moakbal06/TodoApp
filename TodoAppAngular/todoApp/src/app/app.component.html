@@ -1,0 +1,63 @@
+<mat-toolbar class="mat-elevation-z8">
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+          menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+          close
+      </mat-icon>
+  </button>
+  <nav class="navbar navbar-expand">
+      <a href="#" class="navbar-brand">TODO APP</a>
+  
+    </nav>
+  </mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav (click)="matSidenav.toggle()" [autoFocus]="false" class="mat-elevation-z8">
+
+      <img class="avatar mat-elevation-z4" width="150px" [src]="'../assets/avatars/1.png' " />
+
+      <p class="name">{{username}}</p>
+
+      <mat-divider></mat-divider>
+
+      <button mat-button class="menu-button">
+          
+          <a href="/home" class="nav-link" routerLink="home"><mat-icon>home</mat-icon>&nbsp;Ana Sayfa </a>
+      </button>
+  
+      <button mat-button *ngIf="!isLoggedIn" class="menu-button">
+          <a href="/login" class="nav-link" routerLink="login">            <mat-icon>info</mat-icon>
+            &nbsp;Giriş Yap</a>
+      </button>
+      <button mat-button *ngIf="!isLoggedIn" class="menu-button">
+          <span>
+            <a href="/register" class="nav-link" routerLink="register">        
+            <mat-icon>info</mat-icon>
+            &nbsp;Kayıt Ol</a>
+          </span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+  
+      <button *ngIf="isLoggedIn" (click)="logout()" mat-button class="menu-button">
+        <mat-icon  >exit_to_app</mat-icon>
+        <span style="font-size: 11pt;">&nbsp; Çıkış
+<!-- 
+        <span>
+          <a href class="nav-link" (click)="logout()">            
+            </a> -->
+        </span>
+
+      </button>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+              <router-outlet class="content" style="z-index: -1;">
+
+              </router-outlet>
+  </mat-sidenav-content>
+  
+</mat-sidenav-container>

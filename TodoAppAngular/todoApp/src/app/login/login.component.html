@@ -1,0 +1,97 @@
+
+<div class="container h-100">
+    <div class=" row h-100 justify-content-center align-items-center center">
+      <div class="card card-container center transparent " style="border-radius: 1.25em;">
+  
+  
+  
+          <div class="card " style="border-radius: 1.25em">
+          <article class="card-body login " style="border-radius: 1.25em;" >
+         
+            <div class="head">  
+             <h2> Giriş Yap</h2>
+            </div>
+          <!-- <a href="/register" class="float-right btn btn-outline-secondary">Kayıt ol</a> -->
+             <form *ngIf="!isLoggedIn"
+             name="form"
+             (ngSubmit)="f.form.valid && onSubmit()"
+             #f="ngForm"
+             novalidate>
+             <div class="form-group">
+              <label for="username">Kullanıcı Adı</label>
+              <input
+                type="text"
+                class="form-control"
+                name="username"
+                [(ngModel)]="form.username"
+                required
+                #username="ngModel"
+              />
+              <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="f.submitted && username.invalid"
+              >
+                Kullanıcı adı giriniz !
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Şifre</label>
+              <a class="float-right" href="/resetPassword">Şifremi Unuttum</a>
+  
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                [(ngModel)]="form.password"
+                required
+                minlength="5"
+                #password="ngModel"
+              />
+              <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="f.submitted && password.invalid"
+              >
+                <div *ngIf="password.errors?.['required']">Şifre giriniz !</div>
+                <div *ngIf="password.errors?.['minlength']">
+                  Şifre en az 6 karaker olmalıdır !
+                </div>
+              </div>
+            </div>
+       
+              <div class="form-group"> 
+              <div class="checkbox">
+                <label> <input               [(ngModel)]="form.rememberMe"   name="rememberMe"           type="checkbox"> Beni hatırla ! </label>
+              </div> <!-- checkbox .// -->
+              </div> <!-- form-group// -->  
+              <div class="form-group" style="margin-top: 23%;">
+                <button class="btn btn-secondary btn-block button">
+                  Giriş
+                </button>
+              </div>
+              <div class="form-group"> 
+  
+              <a href="/register" class="btn btn-text btn-block">Kayıt olmak için tıklayınız!</a>
+            </div>
+
+              <div class="form-group">
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                  *ngIf="f.submitted && isLoginFailed"
+                >
+                  Giriş başarısız ! Şifre veya kullanıcı adınızı kontrol ediniz.
+                </div>
+              </div>                                             
+          </form>
+          <div class="alert alert-success" *ngIf="isLoggedIn">
+            Hoş Geldiniz  {{ form.username }}
+          </div>
+  
+          </article>
+  
+  
+    </div>
+  </div>
+  

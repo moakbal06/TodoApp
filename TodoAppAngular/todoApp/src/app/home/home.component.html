@@ -1,0 +1,59 @@
+<div class="container">
+<p-panel header={{today}}>
+    <div style="padding-left: 30px;padding-right: 30px">
+        <div class="p-grid" style="margin-top: 15px;margin-left: 22px;">
+            <div class="ui-inputgroup">
+              <input #newtodo [(ngModel)]="todo" name="todo" type="text" pInputText placeholder="Yeni Todo" size="100" 
+                class="p-col-12 ui-md-12" (keyup.enter)="add(newtodo.value)">
+      
+              <div>
+                <span *ngIf="error" style="color: tomato;margin-right: 10px;margin-top: 10px;font-size: 12px;">
+                  Todo zaten kayıtlı
+                </span>
+              </div>
+            </div>
+            <div *ngIf="todo" class="adBtn">
+              <button pButton type="button" label="Save" (click)="add(newtodo.value)" 
+                class="p-button-rounded"></button>
+              <button pButton type="button" label="Cancel" class="rmBtn" (click)="remove()" [style]="{'margin-left': '10px'}"
+                class="p-button-outlined p-button-rounded"></button>
+            </div>
+          </div>
+      <div class="p-grid">
+        <div style="padding-top: 14px; padding-left: 0%; margin-right: 5px;">
+        </div>
+        <div class="p-col-10" style="padding-top: 0%">
+        </div>
+      </div>
+  
+      <p-table #dt [value]="todos" scrollHeight="450px" [scrollable]="true">
+        <ng-template pTemplate="body" let-t let-index="rowIndex">
+          <tr [pReorderableRow]="index">
+            <td style="display:block">
+              <div class="row">
+                <div class="col">
+                  <p-checkbox [(ngModel)]="t.completed" label="{{t.description}}"  [binary]="true"
+                    (onChange)="t.completed ? done(t) : undone(t)" [style]="{'margin-left': '10px;'}">
+                  </p-checkbox>
+                </div>
+                <div class="col-auto">
+                    <button pButton pRipple type="button" icon="pi pi-trash" title="remove" 
+                    class="p-button-rounded p-button-secondary " (click)="removeTodo(t)"
+                   ></button>
+                   <button pButton pRipple type="button" icon="pi pi-pencil" title="edit" 
+                   class="p-button-rounded p-button-primary " (click)="editTodo(t)"
+                  ></button>
+                
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+  
+  
+  
+      
+    </div>
+  </p-panel>
+</div>
