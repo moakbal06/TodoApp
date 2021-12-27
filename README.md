@@ -12,3 +12,6 @@ password
   Create todo and User bucket
 
 docker-compose up
+
+Ui
+localhost:8081
