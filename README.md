@@ -1,7 +1,7 @@
 # TodoApp
 
-*Application Stack
-- Spring Boot, Spring Coucubase ,Swagger ,Docker,Angular,Nginx
+*Application Stack*
+- Spring Boot, Spring Couchbase ,Swagger ,Docker,Angular,Nginx
 
 TodoApp Test 
 run 'mvn test' in the TodoApp project.
