@@ -2,9 +2,9 @@ version: '3.7'
  
 # Define services
 services:
-  # App backend service
+  
   app-server:
-    # Configuration for building the docker image for the backend service
+    
     build:
       context: TodoApp 
       dockerfile: Dockerfile
@@ -12,7 +12,7 @@ services:
       - "8080:8080" 
     restart: always
     depends_on:
-      - couchbase # This service depends on mysql. Start that first.
+      - couchbase 
     environment:
      COUCHBASE_CONNECTION: couchbase:11210
     networks: 
