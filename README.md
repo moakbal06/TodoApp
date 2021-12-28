@@ -32,4 +32,5 @@ http://localhost:8081
 Register and Login to start using app.
 
 Swagger
+- Documentation of apis not finished yet due to lack of time
 http://localhost:8080/swagger-ui/
