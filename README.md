@@ -1,4 +1,11 @@
 # TodoApp
+
+TodoApp Test 
+run 'mvn test' in the TodoApp project.
+
+To start all:
+'docker-compose up' in the folder.
+
 Couchbase 
 Url : http://localhost:8091/ui/index.html
 User Name:Administrator
@@ -14,7 +21,7 @@ Run the query 'CREATE PRIMARY INDEX ON `default`:`todo`'
 And  Create todo and User buckets.
 
 To Access Todo App
-'docker-compose up' in the folder.
+
 
 Ui(Frontend)
 http://localhost:8081
