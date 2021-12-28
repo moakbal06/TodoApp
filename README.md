@@ -15,7 +15,7 @@
 -User Name:Administrator
 -Password:password
 
-*After Couchbase launch:*
+*After Couchbase is launched:*
 
 -We need to make some changes on web gui.
 -Settings -> Advanced Index Settings ->  Indexer Threads = 1
