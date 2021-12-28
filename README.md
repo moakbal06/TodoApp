@@ -1,20 +1,25 @@
 # TodoApp
 Couchbase 
-http://localhost:8091/ui/index.html
-Administrator
-password
+Url : http://localhost:8091/ui/index.html
+User Name:Administrator
+Password:password
 
- Advanced Index Settings 
-  Indexer Threads = 1
+After Couchbase launch:
 
- CREATE PRIMARY INDEX ON `default`:`todo`
+We need to make some changes on web gui.
+Settings -> Advanced Index Settings ->  Indexer Threads = 1
+
+Run the query 'CREATE PRIMARY INDEX ON `default`:`todo`'
   
-  Create todo and User bucket
+And  Create todo and User buckets.
 
-docker-compose up
+To Access Todo App
+'docker-compose up' in the folder.
 
-Ui
-localhost:8081
+Ui(Frontend)
+http://localhost:8081
+
+Register and Login to start using app.
 
 Swagger
 http://localhost:8080/swagger-ui/
