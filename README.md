@@ -4,7 +4,7 @@
 - Spring Boot, Spring Couchbase ,Swagger ,Docker,Angular,Nginx
 
 *TodoApp Test* 
-- Test are not finished yet due to lack of time
+- Tests are not finished yet due to lack of time
 - run "mvn test" in the TodoApp project.
 
 *To start all*
@@ -33,5 +33,5 @@ http://localhost:8081
 Register and Login to start using app.
 
 Swagger
-- Documentation of apis not finished yet due to lack of time
+- Documentation of apis is not finished yet due to lack of time
 - http://localhost:8080/swagger-ui/
