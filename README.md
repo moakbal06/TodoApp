@@ -3,27 +3,27 @@
 *Application Stack*
 - Spring Boot, Spring Couchbase ,Swagger ,Docker,Angular,Nginx
 
-TodoApp Test 
-run 'mvn test' in the TodoApp project.
+*TodoApp Test* 
+- run "mvn test" in the TodoApp project.
 
-To start all:
-'docker-compose up' in the folder.
+*To start all*
+-'docker-compose up' in the folder.
 
-Couchbase 
-Url : http://localhost:8091/ui/index.html
-User Name:Administrator
-Password:password
+*Couchbase* 
+-Url : http://localhost:8091/ui/index.html
+-User Name:Administrator
+-Password:password
 
-After Couchbase launch:
+*After Couchbase launch:*
 
-We need to make some changes on web gui.
-Settings -> Advanced Index Settings ->  Indexer Threads = 1
+-We need to make some changes on web gui.
+-Settings -> Advanced Index Settings ->  Indexer Threads = 1
 
-Run the query 'CREATE PRIMARY INDEX ON `default`:`todo`'
+-Run the query 'CREATE PRIMARY INDEX ON `default`:`todo`'
   
-And  Create todo and User buckets.
+-And  Create todo and User buckets.
 
-To Access Todo App
+*To Access Todo App*
 
 
 Ui(Frontend)
