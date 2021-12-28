@@ -4,6 +4,7 @@
 - Spring Boot, Spring Couchbase ,Swagger ,Docker,Angular,Nginx
 
 *TodoApp Test* 
+- Test are not finished yet due to lack of time
 - run "mvn test" in the TodoApp project.
 
 *To start all*
