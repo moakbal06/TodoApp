@@ -5,9 +5,9 @@ services:
   
   app-server:
     image: moakbal/backtodo
-    build:
-      context: TodoApp 
-      dockerfile: Dockerfile
+#    build:
+#      context: TodoApp 
+#      dockerfile: Dockerfile
     ports:
       - "8080:8080" 
     restart: always
@@ -21,9 +21,9 @@ services:
  
   # Frontend Service 
   app-client:
-    build:
-      context: TodoAppAngular/todoApp 
-      dockerfile: Dockerfile
+ #   build:
+ #     context: TodoAppAngular/todoApp 
+ #     dockerfile: Dockerfile
     image: moakbal/fronttodo
     ports:
       - "8081:80" 
