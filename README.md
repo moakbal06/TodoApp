@@ -7,6 +7,11 @@
 - Tests are not finished yet due to lack of time
 - run "mvn test" in the TodoApp project.
 
+ *TodoApp Build* 
+- mvn clean install -DskipTest
+
+
+
 *To start all*
 -'docker-compose up' in the folder.
 
