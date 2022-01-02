@@ -19,7 +19,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.exhibitionId = params['id'];
 
     });
   }
@@ -42,6 +41,6 @@ export class RegisterComponent implements OnInit {
     );
   }
   reloadPage(): void {
-    window.location.href = '/login?id='+this.exhibitionId;
+    window.location.href = '/login;
   }
 }
