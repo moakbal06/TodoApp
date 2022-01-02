@@ -13,7 +13,6 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-  exhibitionId:any;
 
   constructor(private authService:AuthService,private activatedRoute: ActivatedRoute) { }
 
