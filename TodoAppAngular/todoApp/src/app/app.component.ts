@@ -12,8 +12,6 @@ import { RouterModule } from '@angular/router';
 export class AppComponent implements OnInit {
 
   isLoggedIn = false;
-  showAdminBoard = false;
-  showModeratorBoard = false;
   showUser = false;
   x:number | undefined;
   username: string | undefined;
