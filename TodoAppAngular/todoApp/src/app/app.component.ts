@@ -31,9 +31,9 @@ export class AppComponent implements OnInit {
       var json = JSON.parse(user);
       var $: any;
 
-      this.username ="Welcome "+ json.username;
+      this.username ="Hosgeldin "+ json.username;
     }else{
-    this.username = "Please login"
+    this.username = "Lutfen Giris Yap"
     }
   }
   logout(): void {
