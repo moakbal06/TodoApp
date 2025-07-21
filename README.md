@@ -11,7 +11,7 @@
 - mvn clean install -DskipTest
 
 
-
+ dsadsadasdsadsadsa
 *To start all*
 -'docker-compose up' in the folder.
 
