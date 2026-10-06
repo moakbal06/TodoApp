@@ -4,30 +4,48 @@ import com.example.todoapp.Exception.TodoNotFoundException;
 import com.example.todoapp.model.Todo;
 import com.example.todoapp.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService{
 
-    @Autowired
-    TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
 
     @Override
     public Todo addTodo(Todo todoRequest) {
+        Todo newTodo = Todo.builder()
+                .userId(todoRequest.getUserId())
+                .description(todoRequest.getDescription())
+                .completed(false)
+                .date(LocalDateTime.now())
+                .build();
 
-        todoRequest.setCompleted(false);
-        Todo save = todoRepository.save(todoRequest);
-
-        return save;
+        return todoRepository.save(newTodo);
     }
 
     @Override
-    public Todo editTodo(Todo todoRequest)  {
-        return  todoRepository.save(todoRequest);
+    public Todo editTodo(Todo todoRequest) throws TodoNotFoundException {
+        if (todoRequest.getId() == null || todoRequest.getId().isEmpty()) {
+            throw new TodoNotFoundException("Todo ID is required for edit operation");
+        }
+
+        Todo existingTodo = todoRepository.findById(todoRequest.getId())
+                .orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+
+        Todo updatedTodo = Todo.builder()
+                .id(todoRequest.getId())
+                .userId(todoRequest.getUserId())
+                .description(todoRequest.getDescription())
+                .completed(todoRequest.getCompleted() != null ? todoRequest.getCompleted() : false)
+                .date(existingTodo.getDate())
+                .build();
+
+        return todoRepository.save(updatedTodo);
     }
 
     @Override

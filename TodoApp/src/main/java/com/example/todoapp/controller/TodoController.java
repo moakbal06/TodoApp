@@ -6,7 +6,6 @@ import com.example.todoapp.model.Todo;
 import com.example.todoapp.payload.MessageResponse;
 import com.example.todoapp.service.TodoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/todo")
+@RequiredArgsConstructor
 public class TodoController {
 
-    @Autowired
-    TodoService todoService;
+    private final TodoService todoService;
 
     @GetMapping("getTodos/{userId}")
     @ResponseStatus(HttpStatus.OK)
@@ -35,7 +34,7 @@ public class TodoController {
 
     @PutMapping("/editTodo")
     @ResponseStatus(HttpStatus.OK)
-    public Todo editTodo(@RequestBody @Valid Todo todoRequestDTO) {
+    public Todo editTodo(@RequestBody @Valid Todo todoRequestDTO) throws TodoNotFoundException {
            return  todoService.editTodo(todoRequestDTO);
 
     }
@@ -54,7 +53,7 @@ public class TodoController {
             }
     }
     @PostMapping("/setUndone")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public  ResponseEntity<MessageResponse>  setUndone(@RequestBody @Valid Todo todoRequestDTO)  {
         try {
             todoService.setUndone(todoRequestDTO);
