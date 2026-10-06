@@ -35,6 +35,9 @@
                   <p-checkbox [(ngModel)]="t.completed" label="{{t.description}}"  [binary]="true"
                     (onChange)="t.completed ? done(t) : undone(t)" [style]="{'margin-left': '10px;'}">
                   </p-checkbox>
+                  <div *ngIf="t.date" class="todo-date" data-testid="todo-date">
+                    {{ t.date | date:'dd.MM.yyyy HH:mm:ss':'tr-TR' }}
+                  </div>
                 </div>
                 <div class="col-auto">
                     <button pButton pRipple type="button" icon="pi pi-trash" title="remove" 
