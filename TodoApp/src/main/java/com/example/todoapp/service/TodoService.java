@@ -12,7 +12,7 @@ public interface TodoService {
 
     Todo addTodo(Todo todo);
 
-    Todo editTodo(Todo todo);
+    Todo editTodo(Todo todo) throws TodoNotFoundException;
 
     void removeTodo(String id) throws TodoNotFoundException;
 

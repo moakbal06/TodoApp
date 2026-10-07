@@ -4,30 +4,48 @@ import com.example.todoapp.Exception.TodoNotFoundException;
 import com.example.todoapp.model.Todo;
 import com.example.todoapp.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService{
 
-    @Autowired
-    TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
 
     @Override
     public Todo addTodo(Todo todoRequest) {
+        Todo newTodo = Todo.builder()
+                .userId(todoRequest.getUserId())
+                .description(todoRequest.getDescription())
+                .completed(false)
+                .date(LocalDateTime.now())
+                .build();
 
-        todoRequest.setCompleted(false);
-        Todo save = todoRepository.save(todoRequest);
-
-        return save;
+        return todoRepository.save(newTodo);
     }
 
     @Override
-    public Todo editTodo(Todo todoRequest)  {
-        return  todoRepository.save(todoRequest);
+    public Todo editTodo(Todo todoRequest) throws TodoNotFoundException {
+        if (todoRequest.getId() == null || todoRequest.getId().isEmpty()) {
+            throw new TodoNotFoundException("Todo düzenleme işlemi için ID gereklidir");
+        }
+
+        Todo existingTodo = todoRepository.findById(todoRequest.getId())
+                .orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
+
+        Todo updatedTodo = Todo.builder()
+                .id(todoRequest.getId())
+                .userId(todoRequest.getUserId())
+                .description(todoRequest.getDescription())
+                .completed(todoRequest.getCompleted() != null ? todoRequest.getCompleted() : false)
+                .date(existingTodo.getDate())
+                .build();
+
+        return todoRepository.save(updatedTodo);
     }
 
     @Override
@@ -51,22 +69,22 @@ public class TodoServiceImpl implements TodoService{
 
     @Override
     public void setDone(Todo todoRequestDTO) throws TodoNotFoundException {
-        Todo todo = todoRepository.findById(todoRequestDTO.getId()).orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+        Todo todo = todoRepository.findById(todoRequestDTO.getId()).orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
         todo.setCompleted(true);
         todoRepository.save(todo);
 
     }
     @Override
     public void setUndone(Todo todoRequestDTO) throws TodoNotFoundException {
-        Todo todo = todoRepository.findById(todoRequestDTO.getId()).orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+        Todo todo = todoRepository.findById(todoRequestDTO.getId()).orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
         todo.setCompleted(false);
         todoRepository.save(todo);
 
     }
     private Todo findByUserIdAndId(String userId, String todoId) throws TodoNotFoundException {
-        return todoRepository.findByUserIdAndId( userId,todoId).orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+        return todoRepository.findByUserIdAndId( userId,todoId).orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
     }
     private Todo findById( String todoId) throws TodoNotFoundException {
-        return todoRepository.findById( todoId).orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+        return todoRepository.findById( todoId).orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
     }
 }

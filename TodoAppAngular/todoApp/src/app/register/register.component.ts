@@ -40,6 +40,6 @@ export class RegisterComponent implements OnInit {
     );
   }
   reloadPage(): void {
-    window.location.href = '/login;
+    window.location.href = '/login';
   }
 }
