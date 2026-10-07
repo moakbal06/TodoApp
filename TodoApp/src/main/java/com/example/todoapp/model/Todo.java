@@ -30,12 +30,12 @@ public class Todo implements Serializable {
 
     @Field
     @JsonProperty("userId")
-    @NotBlank(message = "User ID is required")
+    @NotBlank(message = "Kullanıcı ID'si zorunludur")
     private String userId;
 
     @Field
     @JsonProperty("description")
-    @NotBlank(message = "Description is required")
+    @NotBlank(message = "Açıklama zorunludur")
     private String description;
 
     @Field

@@ -31,11 +31,11 @@ public class TodoServiceImpl implements TodoService{
     @Override
     public Todo editTodo(Todo todoRequest) throws TodoNotFoundException {
         if (todoRequest.getId() == null || todoRequest.getId().isEmpty()) {
-            throw new TodoNotFoundException("Todo ID is required for edit operation");
+            throw new TodoNotFoundException("Todo düzenleme işlemi için ID gereklidir");
         }
 
         Todo existingTodo = todoRepository.findById(todoRequest.getId())
-                .orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+                .orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
 
         Todo updatedTodo = Todo.builder()
                 .id(todoRequest.getId())
@@ -69,22 +69,22 @@ public class TodoServiceImpl implements TodoService{
 
     @Override
     public void setDone(Todo todoRequestDTO) throws TodoNotFoundException {
-        Todo todo = todoRepository.findById(todoRequestDTO.getId()).orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+        Todo todo = todoRepository.findById(todoRequestDTO.getId()).orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
         todo.setCompleted(true);
         todoRepository.save(todo);
 
     }
     @Override
     public void setUndone(Todo todoRequestDTO) throws TodoNotFoundException {
-        Todo todo = todoRepository.findById(todoRequestDTO.getId()).orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+        Todo todo = todoRepository.findById(todoRequestDTO.getId()).orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
         todo.setCompleted(false);
         todoRepository.save(todo);
 
     }
     private Todo findByUserIdAndId(String userId, String todoId) throws TodoNotFoundException {
-        return todoRepository.findByUserIdAndId( userId,todoId).orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+        return todoRepository.findByUserIdAndId( userId,todoId).orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
     }
     private Todo findById( String todoId) throws TodoNotFoundException {
-        return todoRepository.findById( todoId).orElseThrow(() -> new TodoNotFoundException("Todo can not found !"));
+        return todoRepository.findById( todoId).orElseThrow(() -> new TodoNotFoundException("Todo bulunamadı!"));
     }
 }
