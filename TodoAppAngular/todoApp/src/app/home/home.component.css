@@ -4,3 +4,18 @@
   margin-left: 30px;
   margin-top: 4px;
 }
+
+.todo-category {
+  margin-left: 30px;
+  margin-top: 4px;
+}
+
+.category-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 8px;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-radius: 12px;
+  font-weight: 500;
+}

@@ -3,9 +3,12 @@
     <div style="padding-left: 30px;padding-right: 30px">
         <div class="p-grid" style="margin-top: 15px;margin-left: 22px;">
             <div class="ui-inputgroup">
-              <input #newtodo [(ngModel)]="todo" name="todo" type="text" pInputText placeholder="Yeni Todo" size="100" 
+              <input #newtodo [(ngModel)]="todo" name="todo" type="text" pInputText placeholder="Yeni Todo" size="100"
                 class="p-col-12 ui-md-12" (keyup.enter)="add(newtodo.value)">
-      
+
+              <input [(ngModel)]="todoCategory" name="category" type="text" pInputText placeholder="Kategori (opsiyonel)" size="100"
+                class="p-col-12 ui-md-12" (keyup.enter)="add(newtodo.value)" style="margin-top: 10px;">
+
               <div>
                 <span *ngIf="error" style="color: tomato;margin-right: 10px;margin-top: 10px;font-size: 12px;">
                   Todo zaten kayıtlı
@@ -37,6 +40,9 @@
                   </p-checkbox>
                   <div *ngIf="t.date" class="todo-date" data-testid="todo-date">
                     {{ t.date | date:'dd.MM.yyyy HH:mm:ss':'tr-TR' }}
+                  </div>
+                  <div *ngIf="t.category" class="todo-category" data-testid="todo-category">
+                    <span class="category-badge">{{ t.category }}</span>
                   </div>
                 </div>
                 <div class="col-auto">

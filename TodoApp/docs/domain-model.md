@@ -12,6 +12,7 @@ TodoApp uygulamasının alan modeli (domain model) tanımları.
 - `description: String` — Todo açıklaması (required, @NotBlank)
 - `completed: Boolean` — Tamamlanma durumu (varsayılan: false, null safe)
 - `date: LocalDateTime` — Oluşturulma zamanı (otomatik set edilir, immutable)
+- `category: String` — Kategori (opsiyonel, serbest metin)
 
 **JSON Format:**
 - `date` alanı Jackson `@JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")` ile formatlanır
@@ -38,6 +39,7 @@ TodoApp uygulamasının alan modeli (domain model) tanımları.
 
 ## Changelog
 
+- 2026-10-12 [OTO-4] § Todo Entity — `category: String` alanı eklendi (opsiyonel, serbest metin kategori girişi; frontend'de kategori input + gösterim, backend'de otomatik persist/retrieve)
 - 2026-10-07 [OTO-2] § Mesajlar — Validation ve exception mesajları Türkçeleştirildi (NotBlank mesajları, TodoNotFoundException mesajları)
 - 2026-10-06 [OTO-2] § Todo Entity — `date: LocalDateTime` alanı eklendi, oluşturma zamanı otomatik set ediliyor
 - 2026-10-06 [OTO-2-review] § Validation — `userId` ve `description` alanlarına @NotBlank, editTodo'ya null check ve completed null safety eklendi

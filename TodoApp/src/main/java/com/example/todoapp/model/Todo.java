@@ -12,7 +12,6 @@ import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Document
 @Getter
@@ -46,4 +45,8 @@ public class Todo implements Serializable {
     @Field
     @JsonProperty("completed")
     Boolean completed;
+
+    @Field
+    @JsonProperty("category")
+    private String category;
 }

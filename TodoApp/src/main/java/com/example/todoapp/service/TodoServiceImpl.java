@@ -21,6 +21,7 @@ public class TodoServiceImpl implements TodoService{
         Todo newTodo = Todo.builder()
                 .userId(todoRequest.getUserId())
                 .description(todoRequest.getDescription())
+                .category(todoRequest.getCategory())
                 .completed(false)
                 .date(LocalDateTime.now())
                 .build();
@@ -41,6 +42,7 @@ public class TodoServiceImpl implements TodoService{
                 .id(todoRequest.getId())
                 .userId(todoRequest.getUserId())
                 .description(todoRequest.getDescription())
+                .category(todoRequest.getCategory())
                 .completed(todoRequest.getCompleted() != null ? todoRequest.getCompleted() : false)
                 .date(existingTodo.getDate())
                 .build();

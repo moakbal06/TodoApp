@@ -78,7 +78,8 @@ describe('HomeComponent', () => {
       userId: 'user1',
       description: 'Test Todo',
       completed: false,
-      date: new Date('2024-10-05T14:30:00')
+      date: new Date('2024-10-05T14:30:00'),
+      category: 'Test Category'
     };
 
     component.todos = [todoWithDate];
@@ -95,7 +96,8 @@ describe('HomeComponent', () => {
       userId: 'user1',
       description: 'Old Todo',
       completed: false,
-      date: null as any
+      date: null as any,
+      category: 'Old Category'
     };
 
     component.todos = [todoWithoutDate];
@@ -105,6 +107,41 @@ describe('HomeComponent', () => {
     expect(dateElement).toBeFalsy();
   });
 
+  it('should display category when todo has category property', () => {
+    const todoWithCategory = {
+      id: '3',
+      userId: 'user1',
+      description: 'Todo with Category',
+      completed: false,
+      date: new Date('2024-10-05T14:30:00'),
+      category: 'Work'
+    };
+
+    component.todos = [todoWithCategory];
+    fixture.detectChanges();
+
+    const categoryElement: DebugElement = fixture.debugElement.query(By.css('[data-testid="todo-category"]'));
+    expect(categoryElement).toBeTruthy();
+    expect(categoryElement.nativeElement.textContent.trim()).toContain('Work');
+  });
+
+  it('should not display category when todo has no category property', () => {
+    const todoWithoutCategory = {
+      id: '4',
+      userId: 'user1',
+      description: 'Todo without Category',
+      completed: false,
+      date: new Date('2024-10-05T14:30:00'),
+      category: null as any
+    };
+
+    component.todos = [todoWithoutCategory];
+    fixture.detectChanges();
+
+    const categoryElement: DebugElement = fixture.debugElement.query(By.css('[data-testid="todo-category"]'));
+    expect(categoryElement).toBeFalsy();
+  });
+
   it('should format date with DatePipe using tr-TR locale', () => {
     const datePipe = TestBed.inject(DatePipe);
     const testDate = new Date('2024-10-05T14:30:45');
@@ -112,5 +149,100 @@ describe('HomeComponent', () => {
     const formatted = datePipe.transform(testDate, 'dd.MM.yyyy HH:mm:ss', undefined, 'tr-TR');
 
     expect(formatted).toBe('05.10.2024 14:30:45');
+  });
+
+  it('should send category when adding new todo', () => {
+    todoServiceSpy.addTodo.and.returnValue(of({}));
+
+    component.todo = 'New Task';
+    component.todoCategory = 'Work';
+    component.add('New Task');
+
+    expect(todoServiceSpy.addTodo).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        description: 'New Task',
+        category: 'Work',
+        userId: 'user1',
+        completed: false
+      })
+    );
+  });
+
+  it('should clear category after adding todo', () => {
+    todoServiceSpy.addTodo.and.returnValue(of({}));
+    todoServiceSpy.getTodos.and.returnValue(of([]));
+
+    component.todo = 'New Task';
+    component.todoCategory = 'Work';
+    component.add('New Task');
+
+    expect(component.todoCategory).toBe('');
+  });
+
+  it('should load category when editing todo', () => {
+    const todoToEdit = {
+      id: '5',
+      userId: 'user1',
+      description: 'Edit Me',
+      completed: false,
+      category: 'Personal'
+    };
+
+    component.editTodo(todoToEdit);
+
+    expect(component.todoCategory).toBe('Personal');
+    expect(component.todo).toBe('Edit Me');
+    expect(component.editedTodo).toBe(todoToEdit);
+  });
+
+  it('should update category when editing todo', () => {
+    const todoToEdit = {
+      id: '6',
+      userId: 'user1',
+      description: 'Original',
+      completed: false,
+      category: 'Old Category'
+    };
+
+    todoServiceSpy.editTodo.and.returnValue(of({}));
+    todoServiceSpy.getTodos.and.returnValue(of([]));
+
+    component.editedTodo = todoToEdit;
+    component.todoCategory = 'New Category';
+    component.add('Updated Description');
+
+    expect(todoServiceSpy.editTodo).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        id: '6',
+        description: 'Updated Description',
+        category: 'New Category'
+      })
+    );
+  });
+
+  it('should clear category when remove is called', () => {
+    component.todoCategory = 'Some Category';
+    component.todo = 'Some Todo';
+
+    component.remove();
+
+    expect(component.todoCategory).toBe('');
+    expect(component.todo).toBeNull();
+  });
+
+  it('should handle add with empty category', () => {
+    todoServiceSpy.addTodo.and.returnValue(of({}));
+
+    component.todo = 'Task without category';
+    component.todoCategory = '';
+    component.add('Task without category');
+
+    expect(todoServiceSpy.addTodo).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        description: 'Task without category',
+        category: '',
+        completed: false
+      })
+    );
   });
 });
