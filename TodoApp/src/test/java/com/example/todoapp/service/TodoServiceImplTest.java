@@ -38,6 +38,7 @@ class TodoServiceImplTest {
         sampleTodo = Todo.builder()
                 .userId("user1")
                 .description("Test todo")
+                .category("Test Category")
                 .build();
     }
 
@@ -87,6 +88,97 @@ class TodoServiceImplTest {
     }
 
     @Test
+    void addTodo_PreservesCategory() {
+        Todo todoWithCategory = Todo.builder()
+                .userId("user1")
+                .description("Test todo")
+                .category("Work")
+                .build();
+
+        given(todoRepository.save(any(Todo.class))).willAnswer(invocation -> {
+            Todo saved = invocation.getArgument(0);
+            saved.setId("generated-id");
+            return saved;
+        });
+
+        Todo result = todoService.addTodo(todoWithCategory);
+
+        assertEquals("Work", result.getCategory());
+    }
+
+    @Test
+    void addTodo_WorksWithNullCategory() {
+        Todo todoWithoutCategory = Todo.builder()
+                .userId("user1")
+                .description("Test todo")
+                .category(null)
+                .build();
+
+        given(todoRepository.save(any(Todo.class))).willAnswer(invocation -> {
+            Todo saved = invocation.getArgument(0);
+            saved.setId("generated-id");
+            return saved;
+        });
+
+        Todo result = todoService.addTodo(todoWithoutCategory);
+
+        assertNull(result.getCategory());
+        assertNotNull(result.getDate());
+        assertFalse(result.getCompleted());
+    }
+
+    @Test
+    void editTodo_UpdatesCategory() throws TodoNotFoundException {
+        Todo existingTodo = Todo.builder()
+                .id("existing-id")
+                .userId("user1")
+                .description("Original description")
+                .completed(false)
+                .category("Old Category")
+                .build();
+
+        Todo updateRequest = Todo.builder()
+                .id("existing-id")
+                .userId("user1")
+                .description("Updated description")
+                .category("New Category")
+                .build();
+
+        given(todoRepository.findById("existing-id")).willReturn(Optional.of(existingTodo));
+        given(todoRepository.save(any(Todo.class))).willAnswer(invocation -> invocation.getArgument(0));
+
+        Todo result = todoService.editTodo(updateRequest);
+
+        assertEquals("New Category", result.getCategory());
+        assertEquals("Updated description", result.getDescription());
+    }
+
+    @Test
+    void editTodo_ClearsCategoryWhenSetToNull() throws TodoNotFoundException {
+        Todo existingTodo = Todo.builder()
+                .id("existing-id")
+                .userId("user1")
+                .description("Original description")
+                .category("Old Category")
+                .build();
+
+        Todo updateRequest = Todo.builder()
+                .id("existing-id")
+                .userId("user1")
+                .description("Updated description")
+                .category(null)
+                .build();
+
+        given(todoRepository.findById("existing-id")).willReturn(Optional.of(existingTodo));
+        given(todoRepository.save(any(Todo.class))).willAnswer(invocation -> invocation.getArgument(0));
+
+        Todo result = todoService.editTodo(updateRequest);
+
+        assertNull(result.getCategory());
+        assertEquals("Updated description", result.getDescription());
+    }
+
+    @Test
     void setDone_ThrowsException_WhenTodoNotFound() {
         Todo todoRequest = Todo.builder()
                 .id("non-existent-id")
@@ -119,6 +211,7 @@ class TodoServiceImplTest {
                 .description("Original description")
                 .completed(false)
                 .date(originalDate)
+                .category("Original Category")
                 .build();
 
         Todo updateRequest = Todo.builder()
@@ -127,6 +220,7 @@ class TodoServiceImplTest {
                 .description("Updated description")
                 .completed(true)
                 .date(LocalDateTime.now())
+                .category("Updated Category")
                 .build();
 
         given(todoRepository.findById("existing-id")).willReturn(Optional.of(existingTodo));

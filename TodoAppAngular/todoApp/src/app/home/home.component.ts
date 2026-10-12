@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   today?: string;
   todos: Todo[] = [];
   todo: any;
+  todoCategory: string = '';
   editedTodo: Todo = null;
   error!: boolean;
 
@@ -68,10 +69,11 @@ export class HomeComponent implements OnInit {
         if (this.editedTodo ==null && !this.todos.some(el => el.description === newtodo)) {
 
 
-            var todoObject:Todo = {userId:this.userData.id,description:newtodo,completed:false};
+            var todoObject:Todo = {userId:this.userData.id,description:newtodo,completed:false,category:this.todoCategory};
             this.todoService.addTodo(todoObject).subscribe({
               next:()=>{
                 this.newtodo.nativeElement.value = '';
+                this.todoCategory = '';
                 this.error = false;
 
             },
@@ -81,15 +83,17 @@ export class HomeComponent implements OnInit {
               error:()=>{
                 this.error = true;
               },
-              
+
             });
-            
+
         }else if(this.editedTodo!=null )
         {
           this.editedTodo.description=newtodo;
+          this.editedTodo.category=this.todoCategory;
           this.todoService.editTodo(this.editedTodo).subscribe({
               next:()=>{
                 this.newtodo.nativeElement.value = '';
+                this.todoCategory = '';
                 this.error = false;
             },
               complete:()=>{
@@ -99,7 +103,7 @@ export class HomeComponent implements OnInit {
               error:()=>{
                 this.error = true;
               },
-              
+
             });
 
         } else {
@@ -111,6 +115,7 @@ export class HomeComponent implements OnInit {
 editTodo(todo: Todo) {
   this.editedTodo=todo;
   this.todo=todo.description;
+  this.todoCategory=todo.category;
 }
 removeTodo(todo: Todo) {
   this.todoService.deleteTodo(todo).subscribe({
@@ -126,6 +131,7 @@ removeTodo(todo: Todo) {
 remove() {
     this.newtodo.nativeElement.value = '';
     this.todo = null;
+    this.todoCategory = '';
     this.error = false;
 }
 

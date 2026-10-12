@@ -82,11 +82,13 @@ public class TodoControllerTest {
         todoRequestDTO = Todo.builder()
                 .userId(DefaultUserId)
                 .description(Description)
+                .category("Test Category")
                 .build();
 
         todoResponseDTO = Todo.builder()
                 .id(todoId)
                 .description(Description)
+                .category("Test Category")
                 .build();
     }
     @Test
